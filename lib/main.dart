@@ -68,7 +68,6 @@ class MyApp extends StatelessWidget {
       navigatorKey: GlobalKey<NavigatorState>(),
       routes: routes,
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
     );
   }
 }
