@@ -3,6 +3,16 @@ class DashboardModel {
   DateTime endDate = DateTime(2030, 1, 31);
   DateTime today = DateTime.now();
 
+  final List<String> menuItemNames = [
+    'মেনু নং\n০০০০১', 'মেনু নং\n০০০০২', 'মেনু নং\n০০০০৩',
+    'মেনু নং\n০০০০৪', 'মেনু নং\n০০০০৫', 'মেনু নং\n০০০০৬',
+  ];
+
+  final List<String> menuItemImages = [
+    'assets/images/menu1.png', 'assets/images/menu2.png', 'assets/images/menu3.png',
+    'assets/images/menu4.png', 'assets/images/menu5.png', 'assets/images/menu6.png',
+  ];
+
 
   String convertToBangla(String number) {
     Map<String, String> digitsMap = {

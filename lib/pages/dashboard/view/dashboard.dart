@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_task/index.dart';
 import 'package:flutter_task/main.dart';
-import 'package:flutter_task/objectbox.g.dart';
 import 'package:get/get.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -20,10 +19,53 @@ class DashboardScreen extends StatelessWidget {
                 _profileInfo(),
                 20.ph,
                 _timeDetailsWidget(),
+                20.ph,
+                _buildMenu(),
               ],
                 ),
           ),
         );
+  }
+
+  Widget _buildMenu() {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: (dashboardController.model.menuItemImages.length / 3).ceil(), // Calculate number of rows
+      itemBuilder: (context, index) {
+        int startIndex = index * 3;
+        int endIndex = startIndex + 3 < dashboardController.model.menuItemImages.length ? startIndex + 3 : dashboardController.model.menuItemNames.length;
+        List<String> rowItems = dashboardController.model.menuItemImages.sublist(startIndex, endIndex);
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: rowItems.asMap().entries.map((entry) {
+            int index = entry.key;
+            String item = entry.value;
+            return Column(
+              children: [
+                Container(
+                  width: 72,
+                  height: 74,
+                  margin: [8].pm,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white),
+                    color: const Color(0xffF6F6F6),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: Image.asset(item, height: 38, width: 38,),
+                  ),
+                ),
+                2.ph,
+                Text(dashboardController.model.menuItemNames[index], style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),),
+                5.ph,
+              ],
+            );
+          }).toList(),
+        );
+      },
+    );
   }
 
   Widget _timeDetailsWidget() {
