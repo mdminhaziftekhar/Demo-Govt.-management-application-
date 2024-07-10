@@ -28,11 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
             title: _titleWidget()),
           drawer: _drawerWidget(),
           bottomNavigationBar: _bottomNavigationBar(),
-          body: const Column(
-            children: [
-              Text('TEST'),
-            ],
-          ),
+          body: homeController.model.pages[homeController.selectedIndex.value],
         )));
   }
 

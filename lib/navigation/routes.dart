@@ -5,5 +5,6 @@ import 'package:flutter_task/index.dart';
 
 /// default routes of this application
 Map<String, WidgetBuilder> defaultRoutes = <String, WidgetBuilder> {
-  '/': (context) => HomeScreen(),
+  '/': (context) => const HomeScreen(),
+  '/dashboard': (context) => const DashboardScreen(),
 };
