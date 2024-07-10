@@ -4,15 +4,8 @@ import 'package:get/get.dart';
 
 import '../controller/home_controller.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreen extends StatelessWidget {
+   HomeScreen({super.key});
 
   final HomeController homeController = Get.put(HomeController());
 

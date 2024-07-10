@@ -4,10 +4,10 @@ import 'package:flutter_task/index.dart';
 class HomeModel {
 
   List<Widget> pages = [
-    const DashboardScreen(),
-    const DashboardScreen(),
-    const DashboardScreen(),
-    const DashboardScreen(),
+     DashboardScreen(),
+     CalendarScreen(),
+     DashboardScreen(),
+     DashboardScreen(),
   ];
 
 }
