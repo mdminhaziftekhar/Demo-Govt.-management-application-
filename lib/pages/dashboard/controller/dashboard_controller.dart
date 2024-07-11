@@ -40,22 +40,24 @@ class DashboardController extends GetxController {
 
   List<String> getRemainingYearsMonthsDays() {
 
-    int yearsPassed = model.today.year - model.startDate.year;
-    int monthsPassed = model.today.month - model.startDate.month;
-    int daysPassed = model.today.day - model.startDate.day;
+    int daysDifference = model.endDate.difference(model.today).inDays;
 
-    if (daysPassed < 0) {
-      monthsPassed--;
-      daysPassed += DateTime(model.startDate.year, model.startDate.month + monthsPassed + 1, 0).day;
-    }
-    if (monthsPassed < 0) {
-      yearsPassed--;
-      monthsPassed += 12;
+    int yearsRemaining = daysDifference ~/ 365;
+    int remainingDays = daysDifference % 365;
+
+    int monthsRemaining = remainingDays ~/ 30;
+    remainingDays %= 30;
+
+    if (daysDifference < 0) {
+      yearsRemaining = -yearsRemaining;
+      monthsRemaining = -monthsRemaining;
+      remainingDays = -remainingDays;
     }
 
-    String banglaYears = model.convertToBangla(yearsPassed.toString());
-    String banglaMonths = model.convertToBangla(monthsPassed.toString());
-    String banglaDays = model.convertToBangla(daysPassed.toString());
+
+    String banglaYears = model.convertToBangla(yearsRemaining.toString());
+    String banglaMonths = model.convertToBangla(monthsRemaining.toString());
+    String banglaDays = model.convertToBangla(remainingDays.toString());
 
     return [
       banglaYears.toString().padLeft(2, '০'),
