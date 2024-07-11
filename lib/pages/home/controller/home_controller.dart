@@ -4,8 +4,10 @@ import 'package:flutter_task/core/db/DAL/task_respository.dart';
 import 'package:flutter_task/pages/home/model/home_model.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:intl/intl.dart';
 import '../../../core/db/entities/data_entity.dart';
 import '../../../core/utils/network_utils.dart';
+import '../../calendar/controller/calendar_controller.dart';
 
 class HomeController extends GetxController {
 
@@ -22,6 +24,11 @@ class HomeController extends GetxController {
 
   void onItemTapped(int index) {
     selectedIndex.value = index;
+  }
+
+  void resetCalendarState() {
+    final CalendarController calendarController = Get.find();
+    calendarController.selectedDate.value = DateFormat('yyyy-MM-dd').format(DateTime.now());
   }
 
   Future<void> getDataAndSaveInDB() async {

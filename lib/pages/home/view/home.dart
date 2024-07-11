@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task/index.dart';
 import 'package:flutter_task/main.dart';
 import 'package:get/get.dart';
 
@@ -49,6 +50,7 @@ class HomeScreen extends StatelessWidget {
                       Expanded(child: InkWell(
                           onTap: (){
                             homeController.onItemTapped(1);
+                            homeController.resetCalendarState();
                           },
                           child: Image.asset(homeController.selectedIndex.value==1? 'assets/images/calendar_selected.png' : 'assets/images/calendar_unselected.png', width: 28, height: 28))),
                     ],
