@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class CalendarScreen extends StatelessWidget {
    CalendarScreen({super.key});
 
-  final CalendarController calendarController = Get.put(CalendarController());
+   final CalendarController calendarController = Get.put(CalendarController());
    final ScrollController scrollController = ScrollController();
 
   @override

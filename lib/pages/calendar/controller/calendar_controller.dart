@@ -1,7 +1,10 @@
-
+import 'package:flutter_task/core/db/DAL/task_respository.dart';
 import 'package:flutter_task/pages/calendar/model/calendar_model.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+import '../../../core/db/entities/data_entity.dart';
+import '../../../objectbox.g.dart';
 
 class CalendarController extends GetxController {
 
@@ -9,9 +12,32 @@ class CalendarController extends GetxController {
 
   var selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now()).obs;
 
+  var dataList = [].obs;
 
-  void selectDate(String date) {
+  RxBool loadingData = false.obs;
+
+  @override
+  void onInit() {
+    fetchDateFromDB(selectedDate.value, initialLoad: true);
+    super.onInit();
+  }
+
+  Future<void> fetchDateFromDB(String date, {bool? initialLoad}) async {
+    if(initialLoad != null) loadingData.value = true;
+    TaskRepository<DataEntity> repository = await TaskRepository.init();
+    dataList.value.clear();
+    dataList.value = await repository.query(DataEntity_.parsedDate.equals(date)).build().findAsync();
+    if(initialLoad != null) loadingData.value = false;
+  }
+
+
+  Future<void> selectDate(String date) async {
+    loadingData.value = true;
     selectedDate.value = date;
+
+    await fetchDateFromDB(date);
+
+    loadingData.value = false;
   }
 
   List<String> generateDateList() {

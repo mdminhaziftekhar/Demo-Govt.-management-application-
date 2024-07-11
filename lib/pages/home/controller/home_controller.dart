@@ -29,6 +29,8 @@ class HomeController extends GetxController {
   void resetCalendarState() {
     final CalendarController calendarController = Get.find();
     calendarController.selectedDate.value = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    calendarController.fetchDateFromDB(calendarController.selectedDate.value, initialLoad: true);
+
   }
 
   Future<void> getDataAndSaveInDB() async {
