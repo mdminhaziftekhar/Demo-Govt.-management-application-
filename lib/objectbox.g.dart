@@ -14,7 +14,7 @@ import 'package:objectbox/internal.dart'
 import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
-import 'core/db/entities/dataEntity.dart';
+import 'core/db/entities/data_entity.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -22,7 +22,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(1, 4628848801787130501),
       name: 'DataEntity',
-      lastPropertyId: const obx_int.IdUid(2, 701125089522261601),
+      lastPropertyId: const obx_int.IdUid(9, 9945396781129642),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -31,8 +31,38 @@ final _entities = <obx_int.ModelEntity>[
             type: 6,
             flags: 1),
         obx_int.ModelProperty(
-            id: const obx_int.IdUid(2, 701125089522261601),
-            name: 'test',
+            id: const obx_int.IdUid(3, 3291951611031694831),
+            name: 'date',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 297077961486332927),
+            name: 'name',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 9148882687315135583),
+            name: 'category',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(6, 1641538458135613664),
+            name: 'location',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(7, 102478777376964039),
+            name: 'parsedDate',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(8, 8367106814090813248),
+            name: 'parsedTime',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(9, 9945396781129642),
+            name: 'timeOfDay',
             type: 9,
             flags: 0)
       ],
@@ -81,7 +111,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [],
-      retiredPropertyUids: const [],
+      retiredPropertyUids: const [701125089522261601],
       retiredRelationUids: const [],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
@@ -97,10 +127,22 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.id = id;
         },
         objectToFB: (DataEntity object, fb.Builder fbb) {
-          final testOffset = fbb.writeString(object.test);
-          fbb.startTable(3);
+          final dateOffset = fbb.writeString(object.date);
+          final nameOffset = fbb.writeString(object.name);
+          final categoryOffset = fbb.writeString(object.category);
+          final locationOffset = fbb.writeString(object.location);
+          final parsedDateOffset = fbb.writeString(object.parsedDate);
+          final parsedTimeOffset = fbb.writeString(object.parsedTime);
+          final timeOfDayOffset = fbb.writeString(object.timeOfDay);
+          fbb.startTable(10);
           fbb.addInt64(0, object.id ?? 0);
-          fbb.addOffset(1, testOffset);
+          fbb.addOffset(2, dateOffset);
+          fbb.addOffset(3, nameOffset);
+          fbb.addOffset(4, categoryOffset);
+          fbb.addOffset(5, locationOffset);
+          fbb.addOffset(6, parsedDateOffset);
+          fbb.addOffset(7, parsedTimeOffset);
+          fbb.addOffset(8, timeOfDayOffset);
           fbb.finish(fbb.endTable());
           return object.id ?? 0;
         },
@@ -109,9 +151,29 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final rootOffset = buffer.derefObject(0);
           final idParam =
               const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4);
-          final testParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 6, '');
-          final object = DataEntity(id: idParam, test: testParam);
+          final dateParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 8, '');
+          final nameParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 10, '');
+          final categoryParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 12, '');
+          final locationParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 14, '');
+          final parsedDateParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 16, '');
+          final parsedTimeParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 18, '');
+          final timeOfDayParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 20, '');
+          final object = DataEntity(
+              id: idParam,
+              date: dateParam,
+              name: nameParam,
+              category: categoryParam,
+              location: locationParam,
+              parsedDate: parsedDateParam,
+              parsedTime: parsedTimeParam,
+              timeOfDay: timeOfDayParam);
 
           return object;
         })
@@ -126,7 +188,31 @@ class DataEntity_ {
   static final id =
       obx.QueryIntegerProperty<DataEntity>(_entities[0].properties[0]);
 
-  /// See [DataEntity.test].
-  static final test =
+  /// See [DataEntity.date].
+  static final date =
       obx.QueryStringProperty<DataEntity>(_entities[0].properties[1]);
+
+  /// See [DataEntity.name].
+  static final name =
+      obx.QueryStringProperty<DataEntity>(_entities[0].properties[2]);
+
+  /// See [DataEntity.category].
+  static final category =
+      obx.QueryStringProperty<DataEntity>(_entities[0].properties[3]);
+
+  /// See [DataEntity.location].
+  static final location =
+      obx.QueryStringProperty<DataEntity>(_entities[0].properties[4]);
+
+  /// See [DataEntity.parsedDate].
+  static final parsedDate =
+      obx.QueryStringProperty<DataEntity>(_entities[0].properties[5]);
+
+  /// See [DataEntity.parsedTime].
+  static final parsedTime =
+      obx.QueryStringProperty<DataEntity>(_entities[0].properties[6]);
+
+  /// See [DataEntity.timeOfDay].
+  static final timeOfDay =
+      obx.QueryStringProperty<DataEntity>(_entities[0].properties[7]);
 }

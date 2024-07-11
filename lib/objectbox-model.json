@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:4628848801787130501",
-      "lastPropertyId": "2:701125089522261601",
+      "lastPropertyId": "9:9945396781129642",
       "name": "DataEntity",
       "properties": [
         {
@@ -15,8 +15,38 @@
           "flags": 1
         },
         {
-          "id": "2:701125089522261601",
-          "name": "test",
+          "id": "3:3291951611031694831",
+          "name": "date",
+          "type": 9
+        },
+        {
+          "id": "4:297077961486332927",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "5:9148882687315135583",
+          "name": "category",
+          "type": 9
+        },
+        {
+          "id": "6:1641538458135613664",
+          "name": "location",
+          "type": 9
+        },
+        {
+          "id": "7:102478777376964039",
+          "name": "parsedDate",
+          "type": 9
+        },
+        {
+          "id": "8:8367106814090813248",
+          "name": "parsedTime",
+          "type": 9
+        },
+        {
+          "id": "9:9945396781129642",
+          "name": "timeOfDay",
           "type": 9
         }
       ],
@@ -31,7 +61,9 @@
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    701125089522261601
+  ],
   "retiredRelationUids": [],
   "version": 1
 }
