@@ -23,6 +23,7 @@ class AddNewScreen extends StatelessWidget {
         child: Padding(
           padding: [20,20,0,20].pm,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _textWidget(),
@@ -34,10 +35,13 @@ class AddNewScreen extends StatelessWidget {
               _locationWidget(context),
               20.ph,
               _descriptionWidget(),
+              100.ph,
             ],
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: _saveButton(context),
     );
   }
 
@@ -314,7 +318,7 @@ class AddNewScreen extends StatelessWidget {
          IntrinsicHeight(
            child: ConstrainedBox(
              constraints: const BoxConstraints(
-               minHeight: 200,
+               minHeight: 100,
                maxHeight: 200,
              ),
              child: TextField(
@@ -364,5 +368,111 @@ class AddNewScreen extends StatelessWidget {
       );
     });
   }
+
+   Widget _saveButton(BuildContext context) {
+     return InkWell(
+       onTap: (){
+         _showSavedDialog(context);
+       },
+       child: Padding(
+         padding: [0,20,10,20].pm,
+         child: Container(
+           height: 50,
+           decoration: BoxDecoration(
+             gradient: const LinearGradient(
+               begin: Alignment.topLeft,
+               end: Alignment(0.6, 1),
+               colors: [
+                 Color(0xff86B560),
+                 Color(0xff336F4A),
+               ],
+             ),
+             borderRadius: BorderRadius.circular(20),
+           ),
+           child: const Center(
+             child: Text(
+               'সংরক্ষন করুন',
+               style: TextStyle(
+                 color: Colors.white,
+                 fontSize: 18,
+                 fontWeight: FontWeight.w700,
+               ),
+             ),
+           ),
+         ),
+       ),
+     );
+   }
+
+   void _showSavedDialog(BuildContext context) {
+     showDialog(
+       context: context,
+       builder: (BuildContext context) {
+         return AlertDialog(
+           content: Column(
+             mainAxisSize: MainAxisSize.min,
+             crossAxisAlignment: CrossAxisAlignment.center,
+             mainAxisAlignment: MainAxisAlignment.center,
+             children: [
+               30.ph,
+               Image.asset('assets/images/saved.png', height: 96, width: 96,),
+               10.ph,
+               const Text('নতুন অনুচ্ছেদ সংরক্ষন', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 16),),
+               10.ph,
+               Wrap(
+                   children: [
+                     SizedBox(
+                         width: MediaQuery.of(context).size.width-30,
+                         child: const Text('আপনার সময়রেখাতে নতুন অনুচ্ছেদ সংরক্ষণ সম্পুর্ন হয়েছে ', style: TextStyle(color: Color(0xff6A6A6A), fontWeight: FontWeight.w400, fontSize: 14),))
+                   ],
+                   ),
+               30.ph,
+               _addMoreButton(context),
+             ],
+           ),
+         );
+       },
+     );
+   }
+
+   Widget _addMoreButton(BuildContext context) {
+     return InkWell(
+       onTap: (){
+          addController.selectedLocation.value = '';
+          addController.selectedCategory.value = '';
+          addController.pickedDate.value = '';
+          Navigator.of(context).pop();
+       },
+       child: Padding(
+         padding: [0,20,10,20].pm,
+         child: Container(
+           height: 50,
+           width: 210,
+           decoration: BoxDecoration(
+             gradient: const LinearGradient(
+               begin: Alignment.topLeft,
+               end: Alignment(0.6, 1),
+               colors: [
+                 Color(0xff86B560),
+                 Color(0xff336F4A),
+               ],
+             ),
+             borderRadius: BorderRadius.circular(20),
+           ),
+           child: const Center(
+             child: Text(
+               'আরও যোগ করুন',
+               style: TextStyle(
+                 color: Colors.white,
+                 fontSize: 18,
+                 fontWeight: FontWeight.w700,
+               ),
+             ),
+           ),
+         ),
+       ),
+     );
+   }
+
 
 }
