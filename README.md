@@ -21,8 +21,9 @@ Flutter test task project
 # Technologies used
 1. Dart programming language
 2. Flutter Framework
-3. Objectbox as Database
-4. Dio for handling network calls
+3. Getx For state management
+4. Objectbox as Database
+5. Dio for handling network calls
 
 # Video of application
 https://github.com/user-attachments/assets/d7f2e24d-0434-4b0b-8c31-840fa6eaeb07
