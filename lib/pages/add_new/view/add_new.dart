@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -33,6 +32,8 @@ class AddNewScreen extends StatelessWidget {
               _dateWidget(context),
               20.ph,
               _locationWidget(context),
+              20.ph,
+              _descriptionWidget(),
             ],
           ),
         ),
@@ -44,7 +45,7 @@ class AddNewScreen extends StatelessWidget {
      return Column(
        crossAxisAlignment: CrossAxisAlignment.start,
        children: [
-         Text(
+         const Text(
            'স্থান',
            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),
          ),
@@ -57,7 +58,7 @@ class AddNewScreen extends StatelessWidget {
            },
            child: Obx(() => Container(
              height: 50,
-             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
              decoration: BoxDecoration(
                color: const Color(0xffF2F2F2),
                borderRadius: BorderRadius.circular(4.0),
@@ -65,12 +66,12 @@ class AddNewScreen extends StatelessWidget {
              ),
              child: Row(
                children: [
-                 Icon(
+                 const Icon(
                    Icons.location_on_outlined,
                    color: Color(0xff6A6A6A),
                    size: 16,
                  ),
-                 SizedBox(width: 10),
+                 const SizedBox(width: 10),
                  Text(
                    addController.selectedLocation.value.isNotEmpty
                        ? addController.selectedLocation.value
@@ -283,6 +284,72 @@ class AddNewScreen extends StatelessWidget {
       ],
     );
   }
+
+   Widget _descriptionWidget() {
+     return Column(
+       crossAxisAlignment: CrossAxisAlignment.start,
+       children: [
+         const Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: [
+             Text(
+               'অনুচ্ছেদের বিবরণ',
+               style: TextStyle(
+                 fontSize: 16,
+                 fontWeight: FontWeight.w700,
+                 color: Colors.black,
+               ),
+             ),
+             Text(
+               '১২০ শব্দ',
+               style: TextStyle(
+                 fontSize: 14,
+                 fontWeight: FontWeight.w400,
+                 color: Color(0xff6A6A6A),
+               ),
+             ),
+           ],
+         ),
+         8.ph,
+         IntrinsicHeight(
+           child: ConstrainedBox(
+             constraints: const BoxConstraints(
+               minHeight: 200,
+               maxHeight: 200,
+             ),
+             child: TextField(
+               controller: TextEditingController(),
+               maxLines: null,
+               decoration: InputDecoration(
+                 fillColor: const Color(0xffF2F2F2),
+                 filled: true,
+                 hintText: 'কার্যক্রমের বিবরণ লিখুন',
+                 hintStyle: const TextStyle(
+                   color: Color(0xff6A6A6A),
+                   fontSize: 14,
+                   fontWeight: FontWeight.w400,
+                 ),
+                 border: OutlineInputBorder(
+                   borderRadius: BorderRadius.circular(4.0),
+                   borderSide: const BorderSide(color: Color(0xffF2F2F2)),
+                 ),
+                 enabledBorder: OutlineInputBorder(
+                   borderRadius: BorderRadius.circular(4.0),
+                   borderSide: const BorderSide(color: Color(0xffF2F2F2)),
+                 ),
+                 focusedBorder: OutlineInputBorder(
+                   borderRadius: BorderRadius.circular(4.0),
+                   borderSide: const BorderSide(color: Color(0xffF2F2F2)),
+                 ),
+               ),
+               textInputAction: TextInputAction.newline,
+               inputFormatters: [_wordLimitFormatter(120)],
+             ),
+           ),
+         ),
+       ],
+     );
+   }
 
   TextInputFormatter _wordLimitFormatter(int maxWords) {
     return TextInputFormatter.withFunction((oldValue, newValue) {
