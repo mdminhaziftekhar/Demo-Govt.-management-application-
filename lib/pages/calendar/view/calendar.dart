@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task/core/db/entities/data_entity.dart';
 import 'package:flutter_task/index.dart';
 import 'package:flutter_task/main.dart';
 import 'package:get/get.dart';
@@ -15,15 +16,114 @@ class CalendarScreen extends StatelessWidget {
           child: Padding(
             padding: [20,20,0,20].pm,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _topDateAndButtonWidget(),
                 25.ph,
                 _datePickerWidget(context),
+                25.ph,
+                _todaysDataWidget(),
               ],
             ),
           ),
         );
   }
+
+  Widget _todaysDataWidget() {
+    return Obx(()=>
+        Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('আজকের কার্যক্রম', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 16),),
+            20.ph,
+            calendarController.loadingData.value?
+            const Center(
+              child: CircularProgressIndicator(color: Color(0xff86B560),strokeWidth: 3,),
+            ) :
+            calendarController.dataList.value.isNotEmpty? ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: calendarController.dataList.value.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: [0,0,15,0].pm,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(flex: 2,child: _timeOfTheDay(calendarController.dataList.value[index].parsedTime, calendarController.dataList.value[index].timeOfDay)),
+                      Expanded(flex: 3,child: _dataCardWidget(calendarController.dataList.value[index])),
+                    ],
+                  ),
+                );
+              },) : const Center(
+              child: Text('কোনো তথ্য নেই', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w700, fontSize: 16)),
+            ),
+          ],
+        )
+    );
+  }
+
+  Widget _dataCardWidget(DataEntity data) {
+    return Container(
+
+      decoration: BoxDecoration(
+        color: data.category == 'অনুচ্ছেদ' ? Colors.black : data.category == 'বাক্য' ? null : Colors.orangeAccent,
+        borderRadius: BorderRadius.circular(20),
+        gradient: data.category == 'বাক্য' ? const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment(0.6, 1),
+          colors: [
+            Color(0xff86B560),
+            Color(0xff336F4A),
+          ],
+        ) : null,
+      ),
+      child: Padding(
+        padding: [10,0,10,12].pm,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.watch_later_outlined, color: Colors.white, size: 14,),
+                2.pw,
+                Text("${calendarController.convertToBanglaDigits(data.parsedTime)} মি.", style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white),),
+              ],
+            ),
+            5.ph,
+            Padding(
+              padding: [0,25,0,0].pm,
+              child: Text("${data.name}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),),
+            ),
+
+            8.ph,
+           Text("${data.category}", style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white),),
+            8.ph,
+            Row(
+              children: [
+                const Icon(Icons.location_on_outlined, color: Colors.white, size: 14,),
+                2.pw,
+                Text("${data.location}", style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white),),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _timeOfTheDay (String time, String timeOfTheDay) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(timeOfTheDay, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),),
+        Text("${calendarController.convertToBanglaDigits(time)} মি.", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),),
+      ],
+    );
+  }
+
 
    Widget _datePickerWidget(BuildContext context) {
      List<String> dates = calendarController.generateDateList();

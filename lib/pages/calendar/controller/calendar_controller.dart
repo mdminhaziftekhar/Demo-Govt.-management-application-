@@ -97,4 +97,15 @@ class CalendarController extends GetxController {
     return banglaDate;
   }
 
+  String convertToBanglaDigits(String time) {
+    String banglaTime = '';
+
+    for (int i = 0; i < time.length; i++) {
+      String char = time[i];
+      banglaTime += model.digitsMap[char] ?? char;
+    }
+
+    return banglaTime;
+  }
+
 }

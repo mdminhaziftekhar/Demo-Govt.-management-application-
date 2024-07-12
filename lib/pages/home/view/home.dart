@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task/index.dart';
 import 'package:flutter_task/main.dart';
 import 'package:get/get.dart';
 
@@ -66,7 +65,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: -35,
+              top: -20,
               left: 0,
               right: 0,
               child: Stack(
@@ -83,18 +82,35 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _drawerWidget() {
-    return const Drawer(
+    return  Drawer(
       backgroundColor: Colors.white,
-      child: DrawerHeader(
-        decoration: BoxDecoration(gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment(0.6, 1),
-        colors: [
-          Color(0xff86B560),
-          Color(0xff336F4A),
+      child: Column(
+        children: [
+          const Expanded(
+            flex: 2,
+            child: SizedBox(
+              width: double.infinity,
+              child: DrawerHeader(
+                decoration: BoxDecoration(gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment(0.6, 1),
+                colors: [
+                  Color(0xff86B560),
+                  Color(0xff336F4A),
+                ],
+              ),),
+                child: Text('Flutter test task', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),),
+            ),
+          ),
+          Expanded(
+            flex: 5,
+            child: Container(
+              color: Colors.white,
+              child: const Center(child: Text('Test flutter', style: TextStyle(color: Colors.black))),
+            ),
+          ),
         ],
-      ),),
-        child: Text('Flutter test task', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),),
+      ),
     );
   }
 
