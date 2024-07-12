@@ -217,6 +217,7 @@ class CalendarScreen extends StatelessWidget {
          Navigator.pushNamed(context, '/add_new').then((value){
            addController.selectedCategory.value = '';
            addController.pickedDate.value = '';
+           addController.selectedLocation.value = '';
          });
        },
        child: Container(

@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,13 +31,74 @@ class AddNewScreen extends StatelessWidget {
               _categoryWidget(context),
               20.ph,
               _dateWidget(context),
-        
+              20.ph,
+              _locationWidget(context),
             ],
           ),
         ),
       ),
     );
   }
+
+   Widget _locationWidget(BuildContext context) {
+     return Column(
+       crossAxisAlignment: CrossAxisAlignment.start,
+       children: [
+         Text(
+           'স্থান',
+           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),
+         ),
+         GestureDetector(
+           onTap: () async {
+             String? locationName = await _selectLocation();
+             if (locationName != null) {
+               addController.selectedLocation.value = locationName;
+             }
+           },
+           child: Obx(() => Container(
+             height: 50,
+             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+             decoration: BoxDecoration(
+               color: const Color(0xffF2F2F2),
+               borderRadius: BorderRadius.circular(4.0),
+               border: Border.all(color: const Color(0xffF2F2F2)),
+             ),
+             child: Row(
+               children: [
+                 Icon(
+                   Icons.location_on_outlined,
+                   color: Color(0xff6A6A6A),
+                   size: 16,
+                 ),
+                 SizedBox(width: 10),
+                 Text(
+                   addController.selectedLocation.value.isNotEmpty
+                       ? addController.selectedLocation.value
+                       : 'নির্বাচন করুন',
+                   style: TextStyle(
+                     color: addController.selectedLocation.value.isNotEmpty
+                         ? const Color(0xff202020)
+                         : const Color(0xff6A6A6A),
+                     fontSize: 14,
+                     fontWeight: FontWeight.w400,
+                   ),
+                 ),
+               ],
+             ),
+           )),
+         ),
+       ],
+     );
+   }
+
+
+   String _selectLocation() {
+     List<String> countries = ['Bangladesh', 'India', 'Pakistan', 'Bhutan'];
+     Random random = Random();
+     int index = random.nextInt(countries.length);
+     return countries[index];
+   }
+
   Widget _dateWidget(BuildContext context) {
     return  Column(
       crossAxisAlignment: CrossAxisAlignment.start,

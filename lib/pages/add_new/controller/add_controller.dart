@@ -5,6 +5,7 @@ class AddController extends GetxController {
   AddNewModel model = AddNewModel();
 
   RxString selectedCategory = ''.obs;
+  RxString selectedLocation = ''.obs;
 
   RxString pickedDate = "".obs;
 
