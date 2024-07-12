@@ -9,8 +9,9 @@ class CalendarScreen extends StatelessWidget {
 
    final CalendarController calendarController = Get.put(CalendarController());
    final ScrollController scrollController = ScrollController();
+   final AddController addController = Get.put(AddController());
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
           child: Padding(
@@ -213,7 +214,10 @@ class CalendarScreen extends StatelessWidget {
    Widget _addButton(BuildContext context) {
      return InkWell(
        onTap: (){
-         Navigator.pushNamed(context, '/add_new');
+         Navigator.pushNamed(context, '/add_new').then((value){
+           addController.selectedCategory.value = '';
+           addController.pickedDate.value = '';
+         });
        },
        child: Container(
          width: 120,

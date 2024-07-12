@@ -6,5 +6,7 @@ class AddController extends GetxController {
 
   RxString selectedCategory = ''.obs;
 
+  RxString pickedDate = "".obs;
+
 
 }
