@@ -18,7 +18,7 @@ class CalendarScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _topDateAndButtonWidget(),
+                _topDateAndButtonWidget(context),
                 25.ph,
                 _datePickerWidget(context),
                 25.ph,
@@ -198,21 +198,23 @@ class CalendarScreen extends StatelessWidget {
    }
 
 
-   Widget _topDateAndButtonWidget() {
+   Widget _topDateAndButtonWidget(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           'আজ ${calendarController.getTodaysBanglaDate()} ${calendarController.getBanglaMonthName()}',
           style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),),
-        _addButton(),
+        _addButton(context),
       ],
     );
   }
 
-   Widget _addButton() {
+   Widget _addButton(BuildContext context) {
      return InkWell(
-       onTap: (){},
+       onTap: (){
+         Navigator.pushNamed(context, '/add_new');
+       },
        child: Container(
          width: 120,
          height: 35,

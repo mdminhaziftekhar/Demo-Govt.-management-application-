@@ -8,4 +8,5 @@ Map<String, WidgetBuilder> defaultRoutes = <String, WidgetBuilder> {
   '/': (context) =>  HomeScreen(),
   '/dashboard': (context) =>  DashboardScreen(),
   '/calendar': (context) =>  CalendarScreen(),
+  '/add_new': (context) =>  AddNewScreen(),
 };
