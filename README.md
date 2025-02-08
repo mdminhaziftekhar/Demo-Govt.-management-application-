@@ -1,5 +1,5 @@
-# flutter_task
-Flutter test task project
+# Management application 
+Management application project for Government
 
 ## Features
 1. Dashboard with dynamic menus (now showing from list, but handled dynamically)
